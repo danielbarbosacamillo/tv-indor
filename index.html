@@ -1,23 +1,22 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <title>Cantinho da Bere</title>
+<meta charset="utf-8">
+<title>Cantinho da Bere</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      overflow: hidden;
-    }
-
-    img {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-    }
-  </style>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  overflow: hidden;
+}
+img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+</style>
 </head>
 
 <body>
@@ -41,7 +40,7 @@ function mostrar() {
   img.src = midias[index];
 
   img.onerror = () => {
-    console.log("Erro no link:", midias[index]);
+    console.log("Erro ao carregar:", midias[index]);
     setTimeout(proxima, 2000);
   };
 
