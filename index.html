@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cantinho da Bere</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+    }
+    img, video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script>
+const midias = [
+  "https://drive.google.com/file/d/1-Gj5IeFd2MtUvjKS99wRPdlaZKkcERgs/view?usp=sharing",
+  "https://drive.google.com/file/d/12KmMROO80tGr6OfG00TdbbnZUEszUkTI/view?usp=sharing",
+  "https://drive.google.com/file/d/171nBjhBTfCO5POpjNl9JeV1FkEC3Dto5/view?usp=sharing"
+];
+
+let index = 0;
+const container = document.getElementById("container");
+
+function mostrarMidia() {
+  container.innerHTML = "";
+
+  const url = midias[index];
+
+  if (url.includes("video")) {
+    const video = document.createElement("video");
+    video.src = url;
+    video.autoplay = true;
+    video.muted = true;
+    video.onended = proxima;
+    container.appendChild(video);
+  } else {
+    const img = document.createElement("img");
+    img.src = url;
+    container.appendChild(img);
+    setTimeout(proxima, 8000);
+  }
+}
+
+function proxima() {
+  index = (index + 1) % midias.length;
+  mostrarMidia();
+}
+
+mostrarMidia();
+</script>
+
+</body>
+</html>
