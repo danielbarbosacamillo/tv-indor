@@ -3,43 +3,61 @@
 <head>
   <meta charset="utf-8">
   <title>Cantinho da Bere</title>
+
   <style>
-    html, body { margin:0; padding:0; background:black; overflow:hidden; }
-    img { width:100vw; height:100vh; object-fit:cover; display:block; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+    }
+
+    img {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 
 <body>
-  <div id="container"></div>
 
-  <script>
-    const midias = [
+<div id="container"></div>
+
+<script>
+const midias = [
   "https://drive.usercontent.google.com/download?id=1-Gj5IeFd2MtUvjKS99wRPdlaZKkcERgs",
   "https://drive.usercontent.google.com/download?id=12KmMROO80tGr6OfG00TdbbnZUEszUkTI",
   "https://drive.usercontent.google.com/download?id=171nBjhBTfCO5POpjNl9JeV1FkEC3Dto5"
 ];
-    let index = 0;
-    const container = document.getElementById("container");
 
-    function mostrar() {
-      container.innerHTML = "";
+let index = 0;
+const container = document.getElementById("container");
 
-      const img = document.createElement("img");
-      img.src = midias[index];
+function mostrar() {
+  container.innerHTML = "";
 
-      img.onerror = () => setTimeout(proxima, 2000);
+  const img = document.createElement("img");
+  img.src = midias[index];
 
-      container.appendChild(img);
-      setTimeout(proxima, 8000);
-    }
+  img.onerror = () => {
+    console.log("Erro ao carregar:", midias[index]);
+    setTimeout(proxima, 2000);
+  };
 
-    function proxima() {
-      index = (index + 1) % midias.length;
-      mostrar();
-    }
+  container.appendChild(img);
 
-    mostrar();
-  </script>
+  setTimeout(proxima, 8000); // troca a cada 8 segundos
+}
+
+function proxima() {
+  index = (index + 1) % midias.length;
+  mostrar();
+}
+
+mostrar();
+</script>
+
 </body>
 </html>
-
