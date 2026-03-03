@@ -1,24 +1,22 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <title>Cantinho da Bere</title>
+<meta charset="utf-8">
+<title>Cantinho da Bere</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      overflow: hidden;
-    }
-
-    img {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      display: block;
-    }
-  </style>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  overflow: hidden;
+}
+img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+</style>
 </head>
 
 <body>
@@ -27,9 +25,9 @@
 
 <script>
 const midias = [
-  "https://drive.usercontent.google.com/download?id=1-Gj5IeFd2MtUvjKS99wRPdlaZKkcERgs",
-  "https://drive.usercontent.google.com/download?id=12KmMROO80tGr6OfG00TdbbnZUEszUkTI",
-  "https://drive.usercontent.google.com/download?id=171nBjhBTfCO5POpjNl9JeV1FkEC3Dto5"
+  "imgs/slide1.jpg",
+  "imgs/slide2.jpg",
+  "imgs/slide3.jpg"
 ];
 
 let index = 0;
@@ -48,7 +46,7 @@ function mostrar() {
 
   container.appendChild(img);
 
-  setTimeout(proxima, 8000); // troca a cada 8 segundos
+  setTimeout(proxima, 8000);
 }
 
 function proxima() {
