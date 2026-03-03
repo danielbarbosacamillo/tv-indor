@@ -1,44 +1,105 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cantinho da Bere</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TV Indoor</title>
   <style>
-    html, body { margin:0; padding:0; background:#000; overflow:hidden; }
-    img { width:100vw; height:100vh; object-fit:cover; display:block; }
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+    #player {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    img, video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* use "cover" se quiser preencher a tela cortando */
+      background: #000;
+    }
   </style>
 </head>
 <body>
-  <div id="container"></div>
+  <div id="player"></div>
 
   <script>
+    // ✅ EDITE AQUI: coloque seus arquivos (na ordem que você quer)
     const midias = [
-      "imgs/slide 1.jpeg",
-      "imgs/slide2.jpg",
-      "imgs/slide3.jpg"
+      "imgs/slide2.jpg",",
+      "midia/vídeo slide 2.mp4.mp4"
     ];
 
-    let index = 0;
-    const container = document.getElementById("container");
+    // ✅ tempo de cada imagem (ms)
+    const tempoImagem = 6000; // 6 segundos
 
-    function mostrar() {
-      container.innerHTML = "";
-      const img = document.createElement("img");
-      img.src = midias[index];
-      img.onerror = () => setTimeout(proxima, 2000);
-      container.appendChild(img);
-      setTimeout(proxima, 8000);
+    let i = 0;
+    let timer = null;
+
+    const player = document.getElementById("player");
+
+    function limparTimer() {
+      if (timer) { clearTimeout(timer); timer = null; }
     }
 
-    function proxima() {
-      index = (index + 1) % midias.length;
-      mostrar();
+    function proximo() {
+      i = (i + 1) % midias.length;
+      tocar();
     }
 
-    mostrar();
+    function tocar() {
+      limparTimer();
+      player.innerHTML = "";
+
+      const arquivo = midias[i];
+      const lower = arquivo.toLowerCase();
+
+      const isVideo = lower.endsWith(".mp4") || lower.endsWith(".webm") || lower.endsWith(".ogg");
+
+      if (isVideo) {
+        const v = document.createElement("video");
+        v.src = arquivo;
+
+        v.autoplay = true;
+        v.muted = true;       // 🔥 importante pra autoplay funcionar em muitos navegadores
+        v.playsInline = true;
+        v.controls = false;
+        v.loop = false;
+
+        v.addEventListener("ended", proximo);
+        v.addEventListener("error", () => {
+          console.log("Erro ao carregar vídeo:", arquivo);
+          proximo();
+        });
+
+        player.appendChild(v);
+
+        // garantia: tenta dar play
+        v.play().catch(() => {});
+      } else {
+        const img = document.createElement("img");
+        img.src = arquivo;
+
+        img.onload = () => {
+          timer = setTimeout(proximo, tempoImagem);
+        };
+        img.onerror = () => {
+          console.log("Erro ao carregar imagem:", arquivo);
+          proximo();
+        };
+
+        player.appendChild(img);
+      }
+    }
+
+    // iniciar
+    tocar();
   </script>
 </body>
 </html>
-
-
