@@ -1,60 +1,43 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8">
-<title>Cantinho da Bere</title>
-
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  background: black;
-  overflow: hidden;
-}
-img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cantinho da Bere</title>
+  <style>
+    html, body { margin:0; padding:0; background:#000; overflow:hidden; }
+    img { width:100vw; height:100vh; object-fit:cover; display:block; }
+  </style>
 </head>
-
 <body>
+  <div id="container"></div>
 
-<div id="container"></div>
+  <script>
+    const midias = [
+      "imgs/slide 1.jpeg",
+      "imgs/slide2.jpg",
+      "imgs/slide3.jpg"
+    ];
 
-<script>
-const midias = [
-  "imgs/slide 1.jpg
-];
+    let index = 0;
+    const container = document.getElementById("container");
 
-let index = 0;
-const container = document.getElementById("container");
+    function mostrar() {
+      container.innerHTML = "";
+      const img = document.createElement("img");
+      img.src = midias[index];
+      img.onerror = () => setTimeout(proxima, 2000);
+      container.appendChild(img);
+      setTimeout(proxima, 8000);
+    }
 
-function mostrar() {
-  container.innerHTML = "";
+    function proxima() {
+      index = (index + 1) % midias.length;
+      mostrar();
+    }
 
-  const img = document.createElement("img");
-  img.src = midias[index];
-
-  img.onerror = () => {
-    console.log("Erro ao carregar:", midias[index]);
-    setTimeout(proxima, 2000);
-  };
-
-  container.appendChild(img);
-
-  setTimeout(proxima, 8000);
-}
-
-function proxima() {
-  index = (index + 1) % midias.length;
-  mostrar();
-}
-
-mostrar();
-</script>
-
+    mostrar();
+  </script>
 </body>
 </html>
 
