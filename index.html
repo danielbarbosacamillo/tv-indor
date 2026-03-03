@@ -1,61 +1,45 @@
 <!doctype html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8">
-<title>Cantinho da Bere</title>
-
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  background: black;
-  overflow: hidden;
-}
-img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-</style>
+  <meta charset="utf-8">
+  <title>Cantinho da Bere</title>
+  <style>
+    html, body { margin:0; padding:0; background:black; overflow:hidden; }
+    img { width:100vw; height:100vh; object-fit:cover; display:block; }
+  </style>
 </head>
 
 <body>
+  <div id="container"></div>
 
-<div id="container"></div>
+  <script>
+    const midias = [
+      "https://drive.google.com/uc?export=view&id=1-Gj5IeFd2MtUvjKS99wRPdlaZKkcERgs",
+      "https://drive.google.com/uc?export=view&id=12KmMROO80tGr6OfG00TdbbnZUEszUkTI",
+      "https://drive.google.com/uc?export=view&id=171nBjhBTfCO5POpjNl9JeV1FkEC3Dto5"
+    ];
 
-<script>
-const midias = [
-  "https://drive.google.com/uc?export=view&id=1-Gj5IeFd2MtUvjKS99wRPdlaZKkcERgs",
-  "https://drive.google.com/uc?export=view&id=12KmMROO80tGr6OfG00TdbbnZUEszUkTI",
-  "https://drive.google.com/uc?export=view&id=171nBjhBTfCO5POpjNl9JeV1FkEC3Dto5"
-];
+    let index = 0;
+    const container = document.getElementById("container");
 
-let index = 0;
-const container = document.getElementById("container");
+    function mostrar() {
+      container.innerHTML = "";
 
-function mostrar() {
-  container.innerHTML = "";
+      const img = document.createElement("img");
+      img.src = midias[index];
 
-  const img = document.createElement("img");
-  img.src = midias[index];
+      img.onerror = () => setTimeout(proxima, 2000);
 
-  img.onerror = () => {
-    console.log("Erro ao carregar:", midias[index]);
-    setTimeout(proxima, 2000);
-  };
+      container.appendChild(img);
+      setTimeout(proxima, 8000);
+    }
 
-  container.appendChild(img);
+    function proxima() {
+      index = (index + 1) % midias.length;
+      mostrar();
+    }
 
-  setTimeout(proxima, 8000);
-}
-
-function proxima() {
-  index = (index + 1) % midias.length;
-  mostrar();
-}
-
-mostrar();
-</script>
-
+    mostrar();
+  </script>
 </body>
 </html>
